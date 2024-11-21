@@ -87,12 +87,13 @@ router.delete("/:id", (req, res) => {
   }
 
   /* ricerca dell'index dell'elemento con l'id scelto da eliminare */
-  let postToDeleteIndex;
-  posts.find((post, index) => {
-    if (post.id === id) {
-      postToDeleteIndex = index;
-    }
-  });
+  const postToDelete = posts.find((post) => post.id === id);
+
+  if (!postToDelete) {
+    return res.status(404).send(`id required not found`);
+  }
+
+  const postToDeleteIndex = posts.indexOf(postToDelete);
 
   if (!postToDeleteIndex && postToDeleteIndex !== 0) {
     return res.status(404).send(`id required not found`);
