@@ -1,6 +1,10 @@
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = process.env.HOST_PORT;
+const domain = process.env.HOST_DOMAIN;
+
 const homepageRouter = require("./routers/homepage");
 const postsRouter = require("./routers/posts");
 
