@@ -1,52 +1,15 @@
 const express = require("express");
 const router = express.Router();
-
-const postList = [
-  {
-    id: 1,
-    titolo: "ciambellone",
-    contenuto: "plumcake a forma di ciambellone",
-    immagine: "/images/ciambellone.jpeg",
-    tags: ["Dolci", "Colazione", "Dessert", "Ciambella"],
-  },
-  {
-    id: 5,
-    titolo: "cracker barbabietola",
-    contenuto: "cracker al gusto di barbabietola",
-    immagine: "/images/cracker_barbabietola.jpeg",
-    tags: ["Salato", "HealthySnacks", "Barbabietola", "NaturalIngredients"],
-  },
-  {
-    id: 7,
-    titolo: "pane fritto dolce",
-    contenuto: "pane fritto dolce",
-    immagine: "/images/pane_fritto_dolce.jpeg",
-    tags: ["Dolci", "Colazione", "Dessert", "HomemadeDesserts"],
-  },
-  {
-    id: 9,
-    titolo: "pasta barbabietola",
-    contenuto: "pasta condita con la barbabietola",
-    immagine: "/images/pasta_barbabietola.jpeg",
-    tags: ["Salato", "Pranzo", "Barbabietola", "ItalianFood", "PastaLovers"],
-  },
-  {
-    id: 10,
-    titolo: "torta paesana",
-    contenuto: "torta paesana",
-    immagine: "/images/torta_paesana.jpeg",
-    tags: ["Dolci", "Spuntino", "Dessert", "TortaPaesana", "RicetteDellaNonna"],
-  },
-];
+const posts = require("../db/postsList");
 
 // * Index
 router.get("/", (req, res) => {
   const titleFilter = req.query.title;
   const hashtagFilter = req.query.hashtag;
-  let newPostList = postList;
+  let newPostList = posts;
 
   if (titleFilter) {
-    newPostList = postList.filter((post) =>
+    newPostList = posts.filter((post) =>
       post.titolo.toLowerCase().includes(titleFilter.toLowerCase())
     );
   }
@@ -75,7 +38,7 @@ router.get("/:id", (req, res) => {
   }
 
   /* trovo il post tramite l'id */
-  const postRequired = postList.find((post) => post.id === id);
+  const postRequired = posts.find((post) => post.id === id);
 
   if (!postRequired) {
     return res.status(404).send(`id required not found`);
@@ -125,7 +88,7 @@ router.delete("/:id", (req, res) => {
 
   /* ricerca dell'index dell'elemento con l'id scelto da eliminare */
   let postToDeleteIndex;
-  postList.find((post, index) => {
+  posts.find((post, index) => {
     if (post.id === id) {
       postToDeleteIndex = index;
     }
@@ -136,10 +99,10 @@ router.delete("/:id", (req, res) => {
   }
 
   /* rimozione dell'index trovato */
-  const postDeleted = postList.splice(postToDeleteIndex, 1);
+  const postDeleted = posts.splice(postToDeleteIndex, 1);
 
   /* res.send(`Delete post with id ${id}`); */
-  res.send({ postDeleted, postList });
+  res.send({ postDeleted, posts });
 });
 
 module.exports = router;
