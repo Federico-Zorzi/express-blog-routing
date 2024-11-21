@@ -94,7 +94,7 @@ router.delete("/:id", (req, res) => {
     }
   });
 
-  if (isNaN(postToDeleteIndex)) {
+  if (!postToDeleteIndex && postToDeleteIndex !== 0) {
     return res.status(404).send(`id required not found`);
   }
 
