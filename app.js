@@ -7,11 +7,10 @@ const domain = process.env.HOST_DOMAIN;
 
 const homepageRouter = require("./routers/homepage");
 const postsRouter = require("./routers/posts");
-
-app.use(express.static("public"));
-
 app.use("/", homepageRouter);
 app.use("/posts", postsRouter);
+
+app.use(express.static("public"));
 
 app.listen(port, () => {
   console.log(`Example app listening at ${domain}${port}`);
