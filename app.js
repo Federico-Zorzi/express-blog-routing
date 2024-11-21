@@ -14,7 +14,7 @@ app.use("/", homepageRouter);
 app.use("/posts", postsRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Example app listening at ${domain}${port}`);
 });
 
 console.log("Server del mio blog");
