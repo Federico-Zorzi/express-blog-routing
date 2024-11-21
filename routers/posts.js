@@ -102,8 +102,8 @@ router.delete("/:id", (req, res) => {
   /* rimozione dell'index trovato */
   const postDeleted = posts.splice(postToDeleteIndex, 1);
 
-  /* res.send(`Delete post with id ${id}`); */
-  res.send({ postDeleted, posts });
+  /*   res.send(`Delete post with id ${id}`); */
+  res.json({ postDeleted, posts });
 });
 
 module.exports = router;
